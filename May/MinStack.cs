@@ -20,21 +20,22 @@ public class MinStack {
         minStack.Push(int.MaxValue);
     }
     
-    public void Push(int x) { // 每次push保证前一个比后一个大
+    public void Push(int x) { //每次push最小栈保证为当前push和之前push的最小值
         this.normalStack.Push(x);
         this.minStack.Push(Math.Min(this.minStack.Peek(), x));
     }
     
     public void Pop() {
         this.normalStack.Pop();
+        this.minStack.Pop();
     }
     
     public int Top() {
-        this.normalStack.Peek();
+        return this.normalStack.Peek();
     }
     
     public int GetMin() {
-
+        return this.minStack.Peek();
     }
 }
 
