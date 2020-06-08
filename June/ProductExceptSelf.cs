@@ -17,3 +17,26 @@ public class Solution {
         return ret;
     }
 }
+
+public class Solution {
+    public int[] ProductExceptSelf(int[] nums)
+    {  
+        int[] resleft = new int[nums.Count()];
+        int[] resright = new int[nums.Count()];
+        int[] resFin = new int[nums.Count()];
+        int left = 1;
+        int right = 1;
+        for (int i = 0; i < nums.Count(); i++)
+        {
+            resleft[i] = left;
+            left *= nums[i];
+        }
+        for (int j = nums.Count()-1; j >=0 ; j--)
+        {
+            resright[j] = right;
+            right *= nums[j];
+            resFin[j] = resright[j] * resleft[j];
+        }
+        return resFin;
+    }
+}
