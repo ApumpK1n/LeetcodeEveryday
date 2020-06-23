@@ -14,13 +14,32 @@ public class Solution {
         string ret = "";
         int jinwei = 0;
         while(i >= 0 && j >= 0){
-            int num = int.Parse(a[i]) + int.Parse(b[j]) + jinwei;
-            ret += num % 2;
+            int num = int.Parse(a[i].ToString()) + int.Parse(b[j].ToString()) + jinwei;
+            ret = (num % 2).ToString() + ret;
             jinwei = num / 2;
             i--;
             j--;
         }
 
         
+        while(i >= 0){
+            int num = int.Parse(a[i].ToString()) + jinwei;
+            ret = (num % 2).ToString() + ret;
+            jinwei = num / 2;
+            i--;
+        }
+
+        while(j >= 0){
+            int num = int.Parse(b[j].ToString()) + jinwei;
+            ret = (num % 2).ToString() + ret;
+            jinwei = num / 2;
+            j--;
+        }
+
+        if (jinwei > 0){
+            ret = jinwei.ToString() + ret;
+        }
+
+        return ret;
     }
 }
