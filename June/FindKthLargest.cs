@@ -31,3 +31,47 @@ public class Solution {
         QuickSort(arr, low, left - 1);
     }
 }
+
+
+// 构建最大堆
+
+public class Solution {
+    private int[] pq;
+    public int FindKthLargest(int[] nums, int k) {
+        BuildMaxHeap(nums);
+        int size = nums.Length;
+        for(int i= nums.Length - 1; i>= nums.Length - k + 1; --i){
+            exch(0, i, nums);
+            --size;
+            Build(nums, 0, size);
+        }
+        return nums[0];
+    }
+
+    // 构建最大堆
+    private void BuildMaxHeap(int[] nums)
+    {
+        for(int i= nums.Length / 2; i>=0; i--){
+            Build(nums, i, nums.Length);
+        }
+    }
+
+    private void Build(int[] nums, int root, int size){
+        int left = root * 2 + 1;
+        int right = root * 2 + 2;
+        int largest = root;
+        if (left < size && nums[left] > nums[largest]) largest = left;
+        if (right < size && nums[right] > nums[largest] ) largest = right;
+        if (root != largest){
+            exch(root, largest, nums);
+            Build(nums, largest, size);
+        }
+    }
+
+    private void exch(int i, int j, int[] nums)
+    {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+} 
