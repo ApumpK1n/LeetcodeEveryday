@@ -14,6 +14,7 @@
 3)"(())"这种形式的,可能前面会包含"()"这种形式，因此要加上，即：dp[i] = dp[i-1] + 2 + dp[i-1-dp[i-1] - 1]
 */
 
+using System.Collections.Generic;
 public class Solution {
     public int LongestValidParentheses(string s) {
         if (s.Length <=1) return 0;
@@ -46,5 +47,28 @@ public class Solution {
             maxLen = Math.Max(maxLen, dp[i]);
         }
         return maxLen;
+    }
+}
+
+
+// 栈
+public class Solution {
+    public int longestValidParentheses(String s) {
+        int maxans = 0;
+        Stack<int> stack = new Stack<int>();
+        stack.Push(-1);
+        for (int i = 0; i < s.Length; i++) {
+            if (s[i] == '(') {
+                stack.Push(i);
+            } else {
+                stack.Pop();
+                if (stack.Count == 0) {
+                    stack.Push(i);
+                } else {
+                    maxans = Math.Max(maxans, i - stack.Peek());
+                }
+            }
+        }
+        return maxans;
     }
 }
