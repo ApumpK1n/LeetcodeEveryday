@@ -16,7 +16,6 @@
 //所以取初始值为两端的香蕉数量作为初始速度，然后每次算当前吃香蕉的时间与总时间做对比
 
 using System;
-
 public class Solution {
     public int MinEatingSpeed(int[] piles, int H) {
         Array.Sort(piles);
