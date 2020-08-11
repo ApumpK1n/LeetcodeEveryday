@@ -26,6 +26,7 @@ public class Solution {
                 count = 1;
             }
         }
+        counts.Add(count);
 
         int res = 0;
         for(int i = 1; i < counts.Count; i++){
