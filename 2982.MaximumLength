@@ -1,0 +1,52 @@
+/*
+2982. 找出出现至少三次的最长特殊子字符串 II
+给你一个仅由小写英文字母组成的字符串 s 。
+
+如果一个字符串仅由单一字符组成，那么它被称为 特殊 字符串。例如，字符串 "abc" 不是特殊字符串，而字符串 "ddd"、"zz" 和 "f" 是特殊字符串。
+
+返回在 s 中出现 至少三次 的 最长特殊子字符串 的长度，如果不存在出现至少三次的特殊子字符串，则返回 -1 。
+
+子字符串 是字符串中的一个连续 非空 字符序列。
+*/
+
+public class Solution {
+    // 遍历一次找出每个字符最长的三个长度
+    public int MaximumLength(string s) {
+        int[,] result = new int[26,3];
+        int n = s.Length;
+        for(int i=0, j=0; i<n; i=j)
+        {
+            while(j<n && s[i] == s[j])
+            {
+                j++;
+            }
+
+            int len = j-i;
+            int index = s[i] - 'a';
+
+            if (len > result[index,0])
+            {
+                result[index,2] = result[index,1];
+                result[index,1] = result[index,0];
+                result[index,0] = len;
+            }
+            else if(len > result[index,1])
+            {
+                result[index,2] = result[index,1];
+                result[index,1] = len;
+            }
+            else if (len > result[index, 2]){
+                result[index,2] = len;
+            }
+        }
+
+        // 求所有的字符最长的长度
+        int finalLen = -1;
+        for(int x=0; x<result.GetLength(0); x++){
+            finalLen = Math.Max(finalLen, result[x, 0] - 2); // 至少是"aaaa"才有三个子串
+            finalLen = Math.Max(finalLen, Math.Min(result[x, 1], result[x, 0] - 1));
+            finalLen = Math.Max(finalLen, result[x, 2]); //最小的长度直接取
+        }
+        return finalLen !=0 ? finalLen : -1;
+    }
+}
